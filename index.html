@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Server Validation Lab</title>
+<meta name="description" content="Practice lab for server product managers: find why EVT/DVT/PVT testing is failing, then make the gate decisions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a test-floor case file — condensed stencil headings, gate strip across the top, one investigation per numbered case, charts drawn from the dataset */
+:root{
+  --bg:#EDF0F2; --panel:#FFFFFF; --ink:#131B22; --ink2:#46535E; --muted:#6F7C87; --line:#D3D9DE;
+  --bar:#A7B3BD; --accent:#1F5FA6; --accent-soft:#E1EAF5;
+  --crit:#C8372D; --crit-soft:#F8E1DE; --good:#17784A; --good-soft:#DCF0E5; --warn:#A86500; --warn-soft:#F7ECD8;
+  --f-disp:"Barlow Condensed","Arial Narrow","Noto Sans TC",sans-serif;
+  --f-body:"IBM Plex Sans","Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#10161B; --panel:#182028; --ink:#E6ECF0; --ink2:#B4C0CA; --muted:#8997A3; --line:#2A3540;
+  --bar:#56636F; --accent:#6FA6E6; --accent-soft:#1B2C40;
+  --crit:#EB6A5F; --crit-soft:#3A1F1D; --good:#4CC486; --good-soft:#15301F; --warn:#E0A33A; --warn-soft:#352812; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10161B; --panel:#182028; --ink:#E6ECF0; --ink2:#B4C0CA; --muted:#8997A3; --line:#2A3540;
+  --bar:#56636F; --accent:#6FA6E6; --accent-soft:#1B2C40;
+  --crit:#EB6A5F; --crit-soft:#3A1F1D; --good:#4CC486; --good-soft:#15301F; --warn:#E0A33A; --warn-soft:#352812; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:1000px;margin:0 auto;padding-inline:16px;padding-block:28px 72px}
+a{color:var(--accent)}
+h1,h2,h3{font-family:var(--f-disp);letter-spacing:.01em;text-wrap:balance;margin:0}
+h1{font-size:clamp(38px,7vw,58px);line-height:.95;text-transform:uppercase}
+h2{font-size:30px;text-transform:uppercase;line-height:1.05}
+h3{font-size:21px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.zh{color:var(--muted);font-weight:400}
+p{max-width:68ch;margin:.5em 0}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+header{display:grid;gap:14px;padding-bottom:22px;border-bottom:2px solid var(--ink)}
+.brief{font-size:17px;max-width:62ch;color:var(--ink2)}
+.stats{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:4px}
+.stat b{display:block;font-family:var(--f-mono);font-size:24px;font-weight:500;line-height:1.1}
+.stat span{font-size:13px;color:var(--muted)}
+.stat.crit b{color:var(--crit)}
+.fict{font-size:12.5px;color:var(--muted);font-family:var(--f-mono)}
+
+section{padding-top:40px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin-bottom:6px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px}
+.chart{width:100%;overflow-x:auto}
+.chart svg{display:block;width:100%;height:auto;min-width:520px}
+.chart.fit svg{min-width:0}
+svg text{font-family:var(--f-body);fill:var(--ink2);font-size:12px}
+svg .num{font-family:var(--f-mono);font-size:11.5px}
+svg .axis{stroke:var(--line)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.sev{display:flex;gap:6px;flex-wrap:wrap}
+.pill{font-family:var(--f-mono);font-size:12px;border-radius:999px;padding:2px 9px;border:1px solid var(--line)}
+.pill.c{background:var(--crit-soft);color:var(--crit);border-color:transparent}
+.pill.m{background:var(--warn-soft);color:var(--warn);border-color:transparent}
+.otab{width:100%;border-collapse:collapse;font-size:14px}
+.otab td,.otab th{padding:8px 6px;border-top:1px solid var(--line);text-align:left}
+.otab th{font-weight:500;color:var(--muted);font-size:12.5px;border-top:0}
+.otab td.n{font-family:var(--f-mono);text-align:right}
+
+/* cases */
+.case{margin-top:18px}
+.case-top{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.case-no{font-family:var(--f-disp);font-weight:700;font-size:54px;line-height:.8;color:var(--accent)}
+.case-t{flex:1;min-width:0}
+.clue{font-size:14.5px;color:var(--ink2)}
+.q{margin-top:16px;border-top:1px dashed var(--line);padding-top:14px}
+.q-label{font-weight:600;margin-bottom:8px}
+.opts{display:grid;gap:8px}
+.opt{font:inherit;font-size:14.5px;text-align:left;background:var(--bg);color:var(--ink);border:1.5px solid var(--line);border-radius:8px;padding:10px 13px;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:focus-visible,.tab:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.opt.right{border-color:var(--good);background:var(--good-soft)}
+.opt.wrong{border-color:var(--crit);background:var(--crit-soft)}
+.opt.partial{border-color:var(--warn);background:var(--warn-soft)}
+.opt:disabled{cursor:default}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips .opt{padding:7px 12px}
+.fb{font-size:14px;margin-top:10px;padding:10px 12px;border-radius:8px;background:var(--accent-soft);color:var(--ink)}
+.fb b{font-weight:600}
+.tag{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-right:6px}
+.tag.ok{background:var(--good);color:var(--panel)}
+.tag.no{background:var(--crit);color:var(--panel)}
+.tag.mid{background:var(--warn);color:var(--panel)}
+
+.score{position:sticky;top:env(safe-area-inset-top,0px);z-index:4;background:var(--bg);border-bottom:1px solid var(--line);padding:9px 0;display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:13.5px}
+.score b{font-family:var(--f-mono);font-weight:500}
+.meter{flex:1;min-width:120px;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.reset{font:inherit;font-size:13px;background:none;border:1px solid var(--line);color:var(--ink2);border-radius:6px;padding:4px 10px;cursor:pointer}
+
+.gate{margin-top:14px}
+.gate .meta{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13.5px;color:var(--ink2);margin:6px 0 4px}
+.gate .meta span b{font-family:var(--f-mono);font-weight:500;color:var(--ink)}
+
+.files{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:10px}
+.file{display:block;text-decoration:none;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.file:hover{border-color:var(--accent)}
+.file b{display:block;font-family:var(--f-mono);font-size:13.5px;font-weight:500;overflow-wrap:anywhere}
+.file span{font-size:13px;color:var(--muted)}
+ol.ex{padding-left:22px;margin:8px 0}
+ol.ex li{margin:6px 0;max-width:72ch}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+
+#tip{position:fixed;pointer-events:none;z-index:10;background:var(--ink);color:var(--bg);font-size:12.5px;line-height:1.4;padding:6px 9px;border-radius:6px;max-width:240px;opacity:0;transition:opacity .1s}
+#tip.on{opacity:1}
+[data-tip]{cursor:default}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Server program office · practice case · data as of 2026-09-25</div>
+  <h1>Server Validation Lab</h1>
+  <p class="brief">Leadership says testing has "a lot of problems" <span class="zh">（測試問題很多）</span>. You have every test run and issue from three server programs. Find what is really going wrong, then make the gate calls a product manager would make.</p>
+  <div class="stats" id="stats"></div>
+  <div class="fict">All programs, numbers and problems are fictional practice data.</div>
+</header>
+
+<div class="score" aria-live="polite">
+  <span>Your score <b id="sc">0 / 0</b></span>
+  <div class="meter"><i id="scm"></i></div>
+  <span><b id="done">0</b> of <b id="totq">0</b> answered</span>
+  <button class="reset" id="reset">Start over</button>
+</div>
+
+<section id="gates">
+  <div class="sec-head"><h2>Where the programs stand</h2><span class="zh">時程與關卡</span></div>
+  <p>Each program moves through the hardware gates <b>EVT → DVT → PVT → MP</b> (工程驗證 → 設計驗證 → 生產驗證 → 量產). Outlines show the plan, filled bars show what actually happened, and red marks time past the planned end.</p>
+  <div class="panel"><div class="chart" id="gantt"></div>
+    <div class="legend"><span><i style="border:1.5px solid var(--muted)"></i>Planned</span><span><i style="background:var(--accent)"></i>Actual</span><span><i style="background:var(--crit)"></i>Past planned end</span></div>
+  </div>
+  <div class="grid2" style="margin-top:14px">
+    <div class="panel">
+      <h3>Pass rate vs exit target</h3>
+      <p class="clue">Passed runs ÷ all runs, by build stage. The tick is the target in the exit criteria.</p>
+      <div class="chart fit" id="passrate"></div>
+    </div>
+    <div class="panel">
+      <h3>Open issues</h3>
+      <p class="clue">Not yet closed, by severity. Ticket counts can hide how many real problems there are.</p>
+      <table class="otab" id="opentab"></table>
+    </div>
+  </div>
+</section>
+
+<section id="cases">
+  <div class="sec-head"><h2>Four investigations</h2><span class="zh">根本原因分析</span></div>
+  <p>Each case starts from a clue in the data. First name the root cause <span class="zh">（根本原因）</span>, then choose the PM's next move <span class="zh">（下一步）</span>.</p>
+  <div id="caselist"></div>
+</section>
+
+<section id="gatereview">
+  <div class="sec-head"><h2>Gate review</h2><span class="zh">關卡審查</span></div>
+  <p>Three programs need a decision this week. A gate is a business decision: Go, conditional Go, or Hold. Use what you found above.</p>
+  <div id="gatelist"></div>
+</section>
+
+<section id="practice">
+  <div class="sec-head"><h2>Do the analysis yourself</h2><span class="zh">動手練習</span></div>
+  <p>The charts above come from these files. Rebuild them in Excel, Power BI, SQL or Python, then try the ten exercises in the workbook's <b>Exercises</b> sheet.</p>
+  <div class="files">
+    <a class="file" href="data/Server_Test_Practice.xlsx"><b>Server_Test_Practice.xlsx</b><span>All tables plus the 10 exercises</span></a>
+    <a class="file" href="data/server_test.db"><b>server_test.db</b><span>SQLite, same four tables</span></a>
+    <a class="file" href="data/test_runs.csv"><b>test_runs.csv</b><span>2,885 runs · Pass / Fail</span></a>
+    <a class="file" href="data/issue_log.csv"><b>issue_log.csv</b><span>250 issues, a few messy rows on purpose</span></a>
+    <a class="file" href="data/thermal_log.csv"><b>thermal_log.csv</b><span>Temperatures and fan duty</span></a>
+    <a class="file" href="data/schedule.csv"><b>schedule.csv</b><span>Planned vs actual gates</span></a>
+    <a class="file" href="data/Answer_Key.md"><b>Answer_Key.md</b><span>Open after you've tried</span></a>
+  </div>
+  <div class="panel" style="margin-top:14px">
+    <h3>The ten exercises</h3>
+    <ol class="ex">
+      <li>Clean the issue log: project names, category spelling, blank owners.</li>
+      <li>Pass rate by program and stage against the exit target.</li>
+      <li>Open issues by severity, and how many real root causes sit behind the Critical ones.</li>
+      <li>Find the test station that fails too often, and when.</li>
+      <li>Compare memory test failures by DIMM lot.</li>
+      <li>Join thermal data to test runs and compare BMC firmware versions.</li>
+      <li>LYRA-4U GPU temperature by ambient: firmware or design?</li>
+      <li>Days to close by root cause, and open issues older than 30 days.</li>
+      <li>Schedule slip for each gate, linked to its cause.</li>
+      <li>Write the weekly status in Chinese: 紅燈 / 黃燈 / 綠燈, problem, owner, next step with a date.</li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  Fictional practice data for learning server product management. Not based on any real company's programs.
+  For the wider picture of stage-gates and PM / PO / PL / PCC roles, see <a href="https://lolopodcast.github.io/PM-PO-PL-PCC/" target="_blank" rel="noopener">HW/SW Product Management</a>.
+</footer>
+</div>
+<div id="tip" role="tooltip"></div>
+
+<script>
+const D = {"pass": [{"p": "ORION-2U", "s": "EVT", "rate": 94.3, "target": 85, "n": 454}, {"p": "ORION-2U", "s": "DVT", "rate": 91.1, "target": 92, "n": 514}, {"p": "ORION-2U", "s": "PVT", "rate": 96.7, "target": 97, "n": 240}, {"p": "VEGA-1U", "s": "EVT", "rate": 90.7, "target": 85, "n": 483}, {"p": "VEGA-1U", "s": "DVT", "rate": 92.7, "target": 92, "n": 519}, {"p": "LYRA-4U", "s": "EVT", "rate": 85.8, "target": 85, "n": 549}, {"p": "LYRA-4U", "s": "DVT", "rate": 92.9, "target": 92, "n": 126}], "open": {"LYRA-4U": {"Critical": 33, "Major": 3, "Minor": 0}, "ORION-2U": {"Critical": 2, "Major": 4, "Minor": 1}, "VEGA-1U": {"Critical": 1, "Major": 6, "Minor": 2}}, "station": [{"k": "ST-01", "rate": 6.8, "f": 15, "n": 219}, {"k": "ST-02", "rate": 7.1, "f": 18, "n": 254}, {"k": "ST-03", "rate": 6.9, "f": 17, "n": 248}, {"k": "ST-04", "rate": 5.6, "f": 14, "n": 250}, {"k": "ST-05", "rate": 4.8, "f": 10, "n": 209}, {"k": "ST-06", "rate": 6.3, "f": 15, "n": 239}, {"k": "ST-07", "rate": 14.8, "f": 38, "n": 256}, {"k": "ST-08", "rate": 7.6, "f": 19, "n": 251}, {"k": "ST-09", "rate": 5.4, "f": 14, "n": 258}, {"k": "ST-10", "rate": 5.6, "f": 15, "n": 267}], "st7": [{"k": "Before 7/20", "f": 1, "n": 99}, {"k": "7/20\u20138/28", "f": 30, "n": 95}, {"k": "After 8/28", "f": 7, "n": 62}], "st7rc": {"Assembly/Process": 1, "Component": 3, "Design": 2, "Firmware/BIOS": 4, "No Fault Found": 19, "Test Setup/Fixture": 9}, "lot": [{"k": "A2605", "rate": 7.7, "f": 4, "n": 52}, {"k": "A2607", "rate": 6.0, "f": 3, "n": 50}, {"k": "B2604", "rate": 7.7, "f": 4, "n": 52}, {"k": "B2607", "rate": 43.3, "f": 13, "n": 30}, {"k": "D2606", "rate": 3.7, "f": 1, "n": 27}], "fw": [{"k": "2.2.8", "rate": 12.9, "f": 16, "n": 124, "fan": 74.2, "cpu": 71.4}, {"k": "2.3.1", "rate": 26.7, "f": 46, "n": 172, "fan": 66.2, "cpu": 74.1}, {"k": "2.3.4", "rate": 9.4, "f": 13, "n": 138, "fan": 70.8, "cpu": 70.9}], "fwfan": {"2.2.8": 6, "2.3.1": 31, "2.3.4": 1}, "gpu": [[30, 77.8, 0, "2.2.8"], [35, 86.7, 0, "2.2.8"], [35, 85.7, 0, "2.2.8"], [25, 69.7, 0, "2.2.8"], [35, 87.2, 0, "2.2.8"], [35, 89.5, 1, "2.2.8"], [30, 87.9, 1, "2.2.8"], [35, 83.2, 0, "2.2.8"], [30, 77.1, 0, "2.2.8"], [35, 88.9, 1, "2.2.8"], [25, 70.0, 0, "2.2.8"], [30, 82.2, 0, "2.2.8"], [25, 72.2, 0, "2.2.8"], [35, 87.6, 1, "2.2.8"], [35, 84.4, 0, "2.2.8"], [25, 71.5, 0, "2.2.8"], [30, 89.0, 1, "2.2.8"], [30, 78.9, 0, "2.2.8"], [25, 68.5, 0, "2.2.8"], [30, 77.3, 0, "2.2.8"], [35, 88.1, 1, "2.2.8"], [25, 71.3, 0, "2.3.1"], [25, 71.8, 0, "2.3.1"], [25, 72.0, 0, "2.3.1"], [25, 74.3, 0, "2.3.1"], [35, 85.1, 0, "2.3.1"], [30, 95.6, 1, "2.3.1"], [25, 72.5, 0, "2.3.1"], [35, 89.8, 1, "2.3.1"], [30, 80.6, 0, "2.3.1"], [35, 88.7, 1, "2.3.1"], [30, 88.1, 1, "2.3.1"], [25, 66.9, 0, "2.3.1"], [30, 89.9, 1, "2.3.1"], [35, 89.4, 1, "2.3.1"], [35, 87.6, 1, "2.3.1"], [35, 99.1, 1, "2.3.1"], [30, 78.0, 0, "2.3.1"], [25, 85.7, 1, "2.3.1"], [25, 68.2, 0, "2.3.1"], [35, 89.3, 1, "2.3.1"], [25, 67.7, 0, "2.3.1"], [25, 70.8, 0, "2.3.1"], [30, 88.6, 1, "2.3.1"], [30, 78.3, 0, "2.3.1"], [35, 88.0, 1, "2.3.1"], [25, 71.5, 0, "2.3.1"], [35, 83.2, 0, "2.3.1"], [35, 83.6, 0, "2.3.1"], [35, 89.4, 1, "2.3.1"], [35, 89.6, 1, "2.3.1"], [25, 69.9, 0, "2.3.1"], [35, 88.5, 0, "2.3.1"], [30, 79.2, 0, "2.3.1"], [35, 88.2, 1, "2.3.1"], [35, 88.7, 1, "2.3.1"], [35, 88.3, 1, "2.3.1"], [35, 81.7, 0, "2.3.1"], [35, 103.6, 1, "2.3.1"], [25, 75.2, 1, "2.3.1"], [30, 76.3, 0, "2.3.1"], [30, 79.5, 0, "2.3.1"], [25, 69.3, 0, "2.3.1"], [30, 78.2, 0, "2.3.1"], [30, 87.6, 1, "2.3.1"], [35, 88.2, 1, "2.3.4"], [25, 68.2, 0, "2.3.4"], [35, 88.1, 0, "2.3.4"], [30, 87.5, 1, "2.3.4"], [35, 85.7, 0, "2.3.4"], [25, 72.1, 0, "2.3.4"], [30, 81.2, 0, "2.3.4"], [25, 68.1, 0, "2.3.4"], [30, 77.0, 0, "2.3.4"], [30, 77.2, 0, "2.3.4"], [25, 70.3, 0, "2.3.4"], [35, 83.3, 0, "2.3.4"], [25, 69.1, 0, "2.3.4"], [30, 87.9, 1, "2.3.4"], [35, 84.8, 0, "2.3.4"], [25, 73.6, 0, "2.3.4"], [25, 73.7, 0, "2.3.4"], [30, 80.3, 0, "2.3.4"], [35, 88.1, 1, "2.3.4"], [35, 90.0, 1, "2.3.4"], [25, 71.0, 0, "2.3.4"], [30, 77.9, 0, "2.3.4"], [30, 77.6, 0, "2.3.4"], [35, 89.5, 0, "2.3.4"], [25, 70.1, 0, "2.3.4"], [25, 70.9, 0, "2.3.4"], [35, 88.4, 1, "2.3.4"], [30, 79.0, 0, "2.3.4"], [25, 69.3, 0, "2.3.4"], [35, 86.0, 0, "2.3.4"], [30, 80.7, 0, "2.3.4"], [35, 89.0, 1, "2.3.4"], [35, 88.3, 0, "2.3.4"], [30, 87.6, 1, "2.3.4"], [25, 72.8, 0, "2.3.4"], [30, 88.1, 1, "2.3.4"], [25, 71.1, 0, "2.3.4"], [30, 78.5, 0, "2.3.4"], [30, 78.4, 0, "2.3.4"], [30, 77.4, 0, "2.3.4"], [25, 74.8, 0, "2.3.4"], [25, 70.7, 0, "2.3.4"], [25, 72.8, 0, "2.3.4"], [30, 75.0, 0, "2.3.4"], [35, 89.4, 1, "2.3.4"], [30, 88.9, 1, "2.3.4"], [25, 72.0, 0, "2.3.4"], [25, 70.9, 0, "2.3.4"], [35, 85.1, 0, "2.3.4"], [25, 68.8, 0, "2.3.4"], [35, 89.4, 1, "2.3.4"], [35, 81.4, 0, "2.3.4"]], "amb": [{"k": 25, "rate": 5.3, "f": 2, "n": 38, "gpu": 71.3, "thr": 0}, {"k": 30, "rate": 33.3, "f": 12, "n": 36, "gpu": 82.0, "thr": 12}, {"k": 35, "rate": 55.8, "f": 24, "n": 43, "gpu": 87.9, "thr": 29}], "sched": [{"Project": "ORION-2U", "Build_Stage": "EVT", "Planned_Start": "2026-06-01", "Planned_End": "2026-07-10", "Actual_Start": "2026-06-01", "Actual_End": "2026-07-10", "PM_Note": null}, {"Project": "ORION-2U", "Build_Stage": "DVT", "Planned_Start": "2026-07-11", "Planned_End": "2026-08-20", "Actual_Start": "2026-07-11", "Actual_End": "2026-08-31", "PM_Note": "Exit approved by PM head"}, {"Project": "ORION-2U", "Build_Stage": "PVT", "Planned_Start": "2026-08-21", "Planned_End": "2026-10-09", "Actual_Start": "2026-09-01", "Actual_End": null, "PM_Note": null}, {"Project": "VEGA-1U", "Build_Stage": "EVT", "Planned_Start": "2026-06-15", "Planned_End": "2026-07-31", "Actual_Start": "2026-06-15", "Actual_End": "2026-07-31", "PM_Note": null}, {"Project": "VEGA-1U", "Build_Stage": "DVT", "Planned_Start": "2026-08-01", "Planned_End": "2026-09-15", "Actual_Start": "2026-08-01", "Actual_End": null, "PM_Note": "Exit review postponed"}, {"Project": "VEGA-1U", "Build_Stage": "PVT", "Planned_Start": "2026-09-16", "Planned_End": "2026-10-30", "Actual_Start": null, "Actual_End": null, "PM_Note": null}, {"Project": "LYRA-4U", "Build_Stage": "EVT", "Planned_Start": "2026-07-01", "Planned_End": "2026-08-25", "Actual_Start": "2026-07-01", "Actual_End": "2026-09-10", "PM_Note": "Exited on waiver; GPU thermal issue carried into DVT"}, {"Project": "LYRA-4U", "Build_Stage": "DVT", "Planned_Start": "2026-08-26", "Planned_End": "2026-10-15", "Actual_Start": "2026-09-11", "Actual_End": null, "PM_Note": null}, {"Project": "LYRA-4U", "Build_Stage": "PVT", "Planned_Start": "2026-10-16", "Planned_End": "2026-11-30", "Actual_Start": null, "Actual_End": null, "PM_Note": null}], "totals": {"runs": 2885, "issues": 250, "open": 52, "crit": 36}};
+const NS="http://www.w3.org/2000/svg";
+const $=s=>document.querySelector(s);
+const el=(tag,attrs={},text)=>{const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;return e};
+const css=v=>`var(--${v})`;
+
+// ---------- header stats ----------
+$("#stats").innerHTML=[
+ [D.totals.runs.toLocaleString(),"test runs"],[D.totals.issues,"issues logged"],[D.totals.open,"still open"],[D.totals.crit,"open Critical",1]
+].map(([v,l,c])=>`<div class="stat${c?" crit":""}"><b>${v}</b><span>${l}</span></div>`).join("");
+
+// ---------- tooltip ----------
+const tip=$("#tip");
+document.addEventListener("pointermove",e=>{
+  const t=e.target.closest&&e.target.closest("[data-tip]");
+  if(!t){tip.classList.remove("on");return}
+  tip.innerHTML=t.getAttribute("data-tip");tip.classList.add("on");
+  const w=tip.offsetWidth,h=tip.offsetHeight;
+  let x=e.clientX+14,y=e.clientY-h-10;if(x+w>innerWidth-8)x=e.clientX-w-14;if(y<8)y=e.clientY+16;
+  tip.style.left=x+"px";tip.style.top=y+"px";
+});
+document.addEventListener("pointerleave",()=>tip.classList.remove("on"));
+
+// ---------- gantt ----------
+(function(){
+  const t0=new Date("2026-06-01"),t1=new Date("2026-12-01"),today=new Date("2026-09-25");
+  const W=900,L=92,R=12,rowH=44,top=26,progs=["ORION-2U","VEGA-1U","LYRA-4U"];
+  const H=top+progs.length*rowH+10;
+  const x=d=>L+(new Date(d)-t0)/(t1-t0)*(W-L-R);
+  const s=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"Gate schedule, planned versus actual"});
+  ["2026-06-01","2026-07-01","2026-08-01","2026-09-01","2026-10-01","2026-11-01"].forEach(m=>{
+    s.append(el("line",{x1:x(m),x2:x(m),y1:top-6,y2:H-6,class:"axis"}));
+    s.append(el("text",{x:x(m)+4,y:14},new Date(m).toLocaleString("en",{month:"short"})));
+  });
+  progs.forEach((p,i)=>{
+    const y=top+i*rowH;
+    s.append(el("text",{x:0,y:y+rowH/2+4,"font-weight":"600",style:"fill:var(--ink)"},p));
+    D.sched.filter(r=>r.Project===p).forEach(r=>{
+      const px=x(r.Planned_Start),pw=x(r.Planned_End)-px;
+      s.append(el("rect",{x:px,y:y+6,width:Math.max(pw,2),height:rowH-14,rx:4,fill:"none",stroke:css("muted"),"stroke-width":1.2,"stroke-dasharray":"3 3"}));
+      if(r.Actual_Start){
+        const aEnd=r.Actual_End||"2026-09-25";
+        const ax=x(r.Actual_Start),onTimeEnd=Math.min(x(aEnd),x(r.Planned_End));
+        s.append(el("rect",{x:ax,y:y+11,width:Math.max(onTimeEnd-ax,0),height:rowH-24,rx:3,fill:css("accent")}));
+        if(x(aEnd)>x(r.Planned_End)){
+          const lx=Math.max(x(r.Planned_End),ax);
+          s.append(el("rect",{x:lx,y:y+11,width:x(aEnd)-lx,height:rowH-24,rx:3,fill:css("crit")}));
+        }
+      }
+      const late=r.Actual_End?Math.round((new Date(r.Actual_End)-new Date(r.Planned_End))/864e5):(r.Actual_Start&&today>new Date(r.Planned_End)?Math.round((today-new Date(r.Planned_End))/864e5):null);
+      const tipTxt=`<b>${p} ${r.Build_Stage}</b><br>Plan ${r.Planned_Start} → ${r.Planned_End}<br>Actual ${r.Actual_Start||"not started"} → ${r.Actual_End||(r.Actual_Start?"running":"–")}${late>0?`<br>${late} days late`:""}${r.PM_Note?`<br><i>${r.PM_Note}</i>`:""}`;
+      const hit=el("rect",{x:px-2,y:y+2,width:Math.max(pw,x(r.Actual_End||"2026-09-25")-px)+4,height:rowH-6,fill:"transparent","data-tip":tipTxt});
+      s.append(el("text",{x:px+6,y:y+rowH/2+4,style:"fill:var(--ink);font-family:var(--f-mono);font-size:11px;paint-order:stroke;stroke:var(--panel);stroke-width:3px"},r.Build_Stage));
+      s.append(hit);
+    });
+  });
+  const tx=x(today);
+  s.append(el("line",{x1:tx,x2:tx,y1:top-8,y2:H-4,stroke:css("ink"),"stroke-width":1.5}));
+  s.append(el("text",{x:tx+4,y:top-10,style:"fill:var(--ink);font-size:11px;font-family:var(--f-mono)"},"9/25 today"));
+  $("#gantt").append(s);
+})();
+
+// ---------- pass-rate dot plot ----------
+(function(){
+  const rows=D.pass,W=420,L=110,R=56,rh=30,top=22,H=top+rows.length*rh+6,lo=80,hi=100;
+  const x=v=>L+(v-lo)/(hi-lo)*(W-L-R);
+  const s=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"Pass rate versus target"});
+  [80,85,90,95,100].forEach(v=>{s.append(el("line",{x1:x(v),x2:x(v),y1:top-6,y2:H-4,class:"axis"}));s.append(el("text",{x:x(v),y:12,"text-anchor":"middle",class:"num"},v+"%"))});
+  rows.forEach((r,i)=>{
+    const y=top+i*rh+rh/2,ok=r.rate>=r.target;
+    s.append(el("text",{x:0,y:y+4},`${r.p} ${r.s}`));
+    s.append(el("line",{x1:x(r.target),x2:x(r.target),y1:y-9,y2:y+9,stroke:css("ink"),"stroke-width":2}));
+    s.append(el("line",{x1:x(Math.min(r.rate,r.target)),x2:x(Math.max(r.rate,r.target)),y1:y,y2:y,stroke:ok?css("good"):css("crit"),"stroke-width":2}));
+    s.append(el("circle",{cx:x(r.rate),cy:y,r:5.5,fill:ok?css("good"):css("crit"),stroke:css("panel"),"stroke-width":2}));
+    s.append(el("text",{x:W-R+8,y:y+4,class:"num",style:`fill:${ok?"var(--good)":"var(--crit)"}`},`${ok?"✓":"✕"} ${r.rate}%`));
+    s.append(el("rect",{x:0,y:y-rh/2,width:W,height:rh,fill:"transparent","data-tip":`<b>${r.p} ${r.s}</b><br>${r.rate}% of ${r.n} runs passed<br>Target ${r.target}% · ${ok?"meets":"misses"}`}));
+  });
+  $("#passrate").append(s);
+})();
+
+// ---------- open issues table ----------
+(function(){
+  const o=D.open,ps=["ORION-2U","VEGA-1U","LYRA-4U"];
+  let h=`<tr><th>Program</th><th style="text-align:right">Critical</th><th style="text-align:right">Major</th><th style="text-align:right">Minor</th></tr>`;
+  ps.forEach(p=>{const r=o[p];h+=`<tr><td>${p}</td><td class="n"><span class="pill ${r.Critical?"c":""}">${r.Critical||0}</span></td><td class="n"><span class="pill ${r.Major?"m":""}">${r.Major||0}</span></td><td class="n">${r.Minor||0}</td></tr>`});
+  $("#opentab").innerHTML=h;
+})();
+
+// ---------- horizontal bar chart ----------
+function hbar(rows,{hi,unit="%",max,label="Fail rate"}={}){
+  const W=560,L=84,R=110,rh=28,top=8,H=top+rows.length*rh+22;
+  const M=max||Math.max(...rows.map(r=>r.v))*1.08;
+  const x=v=>L+v/M*(W-L-R);
+  const s=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":label});
+  s.append(el("line",{x1:L,x2:L,y1:top-2,y2:H-18,stroke:css("muted")}));
+  rows.forEach((r,i)=>{
+    const y=top+i*rh,isHi=hi&&hi(r);
+    s.append(el("text",{x:L-8,y:y+rh/2+4,"text-anchor":"end",style:isHi?"fill:var(--ink);font-weight:600":""},r.k));
+    const w=Math.max(x(r.v)-L,2);
+    s.append(el("path",{d:`M${L},${y+5}h${w-4}a4,4 0 0 1 4,4v${rh-18}a4,4 0 0 1 -4,4h${-(w-4)}z`,fill:isHi?css("crit"):css("bar")}));
+    s.append(el("text",{x:L+w+6,y:y+rh/2+4,class:"num",style:isHi?"fill:var(--ink);font-weight:500":""},`${r.v}${unit}${r.sub?"  "+r.sub:""}`));
+    s.append(el("rect",{x:0,y,width:W,height:rh,fill:"transparent","data-tip":r.tip}));
+  });
+  s.append(el("text",{x:L,y:H-4,class:"num",style:"fill:var(--muted)"},label));
+  return s;
+}
+
+// ---------- GPU scatter ----------
+function gpuScatter(){
+  const W=560,L=46,R=16,T=14,B=34,H=270,lo=60,hi=110;
+  const ambs=[25,30,35],bx=a=>L+(ambs.indexOf(a)+.5)*(W-L-R)/3;
+  const y=v=>T+(hi-v)/(hi-lo)*(H-T-B);
+  const s=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"LYRA-4U max GPU temperature by ambient temperature"});
+  [60,70,80,90,100,110].forEach(v=>{s.append(el("line",{x1:L,x2:W-R,y1:y(v),y2:y(v),class:"axis"}));s.append(el("text",{x:L-6,y:y(v)+4,"text-anchor":"end",class:"num"},v+"°"))});
+  s.append(el("line",{x1:L,x2:W-R,y1:y(87),y2:y(87),stroke:css("crit"),"stroke-width":1.5,"stroke-dasharray":"5 4"}));
+  s.append(el("text",{x:W-R,y:y(87)-6,"text-anchor":"end",style:"fill:var(--crit);font-size:11.5px"},"87 °C GPU throttles"));
+  ambs.forEach(a=>s.append(el("text",{x:bx(a),y:H-10,"text-anchor":"middle"},`${a} °C ambient`)));
+  let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+  D.gpu.forEach(([a,g,f,fw])=>{
+    const cx=bx(a)+(rnd()-.5)*90;
+    s.append(el("circle",{cx,cy:y(g),r:4.5,fill:f?css("crit"):css("bar"),stroke:css("panel"),"stroke-width":1.5,"data-tip":`${g} °C at ${a} °C ambient<br>BMC ${fw} · ${f?"Fail":"Pass"}`}));
+  });
+  return s;
+}
+
+// ---------- quiz engine ----------
+const RC=["Design","Firmware/BIOS","Component (supplier)","Test setup / fixture","Assembly / process"];
+const CASES=[
+ {t:"The station that fails too often",zh:"測試站不良率異常",
+  clue:"Engineers keep logging No POST and Link down failures, but many are closed as <b>No Fault Found</b> (無法重現). Look at the failure rate by test station, excluding thermal chambers.",
+  chart:()=>{const w=document.createElement("div");w.className="chart";
+     w.append(hbar(D.station.map(r=>({k:r.k,v:r.rate,sub:`${r.f}/${r.n}`,tip:`<b>${r.k}</b><br>${r.f} fails in ${r.n} runs`})),{hi:r=>r.k==="ST-07",label:"Fail rate, all tests on the station"}));
+     const p=document.createElement("p");p.className="clue";
+     p.innerHTML="ST-07 by period: "+D.st7.map(r=>`<b class="mono">${r.k}</b> ${r.f}/${r.n} fails (${(r.f/r.n*100).toFixed(1)}%)`).join(" · ")+`. Its issues were closed as <b>${D.st7rc["No Fault Found"]}</b> No Fault Found and <b>${D.st7rc["Test Setup/Fixture"]}</b> Test Setup/Fixture.`;
+     w.append(p);return w},
+  rc:3, rcWhy:"The servers were fine. The failure rate rose only on ST-07, only from late July, and retests on other stations passed. That points to the station itself. A worn high-speed cable was found on 8/12 and replaced on 8/28.",
+  move:{q:"What should the PM push for?",o:[
+    ["Take ST-07 out of service, retest its failed units on another station, and add a weekly fail-rate-by-station check.",2,"Right. This removes the source of false failures, recovers the real pass rate, and adds a control so the next worn fixture is caught in days."],
+    ["Close every No Fault Found issue to bring the open count down.",1,"Partly. Closing them cleans the list, but without fixing the station the same false failures keep coming back."],
+    ["Ask RD to redesign the NIC, since Link down is a network symptom.",0,"No. The same units pass on other stations, so a redesign would spend engineering time on a problem the product doesn't have."]]}},
+ {t:"The memory test that fails on one project",zh:"記憶體測試異常",
+  clue:"VEGA-1U keeps failing <b>Memtest stress 12h</b> with <i>Correctable ECC errors over threshold</i>. Every unit records its DIMM vendor and lot number.",
+  chart:()=>{const w=document.createElement("div");w.className="chart";
+     w.append(hbar(D.lot.map(r=>({k:r.k,v:r.rate,sub:`${r.f}/${r.n}`,tip:`<b>Lot ${r.k}</b><br>${r.f} fails in ${r.n} memtest runs`})),{hi:r=>r.k==="B2607",label:"Memtest stress 12h fail rate by DIMM lot"}));return w},
+  rc:2, rcWhy:"One lot, B2607, fails about 43% of the time while every other lot stays under 8%, including the other lot from the same vendor. That is a supplier component problem (料件問題), owned by SQE.",
+  move:{q:"What should the PM push for?",o:[
+    ["Quarantine lot B2607, have SQE request an 8D from the supplier, list which built units carry it, and get the replacement lead time from procurement.",2,"Right. It contains the problem, starts the supplier fix, and gives you the dates you need to re-plan the DVT exit."],
+    ["Switch every program to another DIMM vendor this week.",1,"Too broad. The other lots from this vendor are fine, and a new vendor needs its own qualification, which adds more schedule risk."],
+    ["Raise the ECC error threshold so the test passes.",0,"No. That hides a real reliability risk, and customers and data-center operators track ECC errors closely."]]}},
+ {t:"Thermal failures on every program",zh:"散熱測試異常",
+  clue:"From mid-July, thermal tests start failing on <b>all three</b> programs with <i>Fan speed not responding</i>. The three programs share one BMC firmware (the management controller that runs the fans).",
+  chart:()=>{const w=document.createElement("div");w.className="grid2";
+     const a=document.createElement("div");a.className="chart fit";a.append(hbar(D.fw.map(r=>({k:"BMC "+r.k,v:r.rate,sub:`${r.f}/${r.n}`,tip:`<b>BMC ${r.k}</b><br>${r.f} thermal fails in ${r.n} runs<br>“Fan not responding”: ${D.fwfan[r.k]||0}`})),{hi:r=>r.k==="BMC 2.3.1",label:"Thermal test fail rate"}));
+     const b=document.createElement("div");b.className="chart fit";b.append(hbar(D.fw.map(r=>({k:"BMC "+r.k,v:r.fan,tip:`<b>BMC ${r.k}</b><br>Average fan duty ${r.fan}%<br>Average max CPU ${r.cpu} °C`})),{hi:r=>r.k==="BMC 2.3.1",max:100,label:"Average fan duty"}));
+     w.append(a,b);return w},
+  rc:1, rcWhy:"Failures rise only while BMC 2.3.1 was in use (7/15 to 8/20), across all programs, with the fans stuck slow. In 2.3.1 the fan table didn't load after an AC power cycle. Version 2.3.4 fixed it, and the failure rate dropped back down.",
+  move:{q:"What should the PM push for?",o:[
+    ["Confirm the fix with data, rerun the thermal tests that failed on 2.3.1, and ask RD-FW to add a fan-control check after AC cycle to every BMC release test.",2,"Right. Proving the fix and adding a regression test stops the same bug from shipping again, and it protects all programs at once."],
+    ["Roll every program back to BMC 2.2.8 for good.",1,"Only a short-term patch. 2.3.x carries other fixes, and 2.3.4 already solves the problem."],
+    ["Order higher-speed fans for all three programs.",0,"No. The fans were fine. The firmware was telling them to run slow, and new fans add cost to the BOM for no benefit."]]}},
+ {t:"The GPU server that runs hot",zh:"GPU 伺服器散熱",
+  clue:"LYRA-4U has <b>33 open Critical</b> issues about GPU throttling. Thermal tests run at 25, 30 and 35 °C room temperature. Each dot is one thermal test run.",
+  chart:()=>{const w=document.createElement("div");w.className="chart";w.append(gpuScatter());
+     const l=document.createElement("div");l.className="legend";l.innerHTML='<span><i style="background:var(--crit)"></i>Failed run</span><span><i style="background:var(--bar)"></i>Passed run</span>';w.append(l);return w},
+  rc:0, rcWhy:"The hotter the room, the hotter the GPUs, and failures keep happening on the fixed BMC 2.3.4. The heatsink and airflow can't cool eight GPUs at 30–35 °C, so this is a design limit. 33 tickets, one root cause.",
+  move:{q:"What should the PM push for?",o:[
+    ["Make the new air shroud the program's top risk with an owner and date, estimate its BOM and tooling cost, and tell the customer early.",2,"Right. This is strategic work for the PM: cost and schedule trade-offs, plus managing what the customer expects before it becomes a surprise."],
+    ["Quietly cap GPU power in firmware so the tests pass.",0,"No. That lowers performance the customer is paying for. Any trade-off like that has to be agreed with the customer openly."],
+    ["Run the thermal tests only at 25 °C until the fix is ready.",0,"No. The spec needs 35 °C, and skipping those tests hides the risk instead of managing it."]]}},
+];
+const GATES=[
+ {t:"VEGA-1U · DVT exit",meta:[["Pass rate","92.7% (target 92%)"],["Open Critical","1 (No Fault Found)"],["DIMM lot B2607","quarantined"],["Past plan","10 days"]],
+  o:[["Go. The pass rate meets the target.",0,"No. Units with the bad DIMM lot are still in the build, and PVT needs production-ready material. A number that meets target doesn't cover a known open problem."],
+     ["Hold, with a dated recovery plan: retest on the replacement lot, and close or reproduce the open Critical.",2,"Right. Exit criteria include 0 open Critical, and PVT must run on good material. A Hold with dates is a decision, not a delay."],
+     ["Conditional Go: start PVT now and swap the DIMMs later.",1,"Risky. Building PVT units on suspect material means rework and may invalidate PVT results. Use this only if the customer date truly can't move and the risk is signed off."]]},
+ {t:"LYRA-4U · continue DVT",meta:[["Pass rate","92.9% so far"],["Open Critical","33, one design root cause"],["EVT","exited on waiver, 16 days late"]],
+  o:[["Keep running DVT tests that don't depend on thermal, make shroud validation the critical path, and escalate the spec risk to the customer with data.",2,"Right. Other validation keeps moving while the one real blocker gets focus. Escalating early is healthy, not a failure."],
+     ["Stop the program until thermal is solved.",0,"Too extreme. Most of DVT can go on, and stopping wastes the test capacity you already booked."],
+     ["Ask the customer to accept a 30 °C limit without a cost analysis.",1,"A spec change is a real option, but it's a business decision. Bring the cost and schedule of each path, not just the request."]]},
+ {t:"ORION-2U · PVT → mass production",meta:[["Pass rate","96.7% (target 97%)"],["Open Critical","2, under analysis, 5 days old"],["Stage","PVT running"]],
+  o:[["Go to MP. It's only 0.3% below target.",0,"No. Two Critical issues have no root cause yet. Shipping without one risks failures in the field, which cost far more than a short delay."],
+     ["Hold the MP decision until both Critical issues have a root cause and fix, then re-review.",2,"Right. MP is the last gate. The gap is small, so a quick root cause is likely, and a short hold protects the customer launch."],
+     ["Conditional Go with a waiver signed by the customer.",1,"Possible, but only after the root causes are understood. Nobody should sign a waiver for an unknown problem."]]},
+];
+
+let state={};try{state=JSON.parse(localStorage.getItem("vlab")||"{}")}catch(e){}
+const save=()=>{try{localStorage.setItem("vlab",JSON.stringify(state))}catch(e){}};
+const TOTAL=CASES.length*2+GATES.length;
+$("#totq").textContent=TOTAL;
+function refresh(){
+  const vals=Object.values(state),pts=vals.reduce((a,v)=>a+v.pts,0);
+  $("#sc").textContent=`${pts} / ${TOTAL*2}`;$("#done").textContent=vals.length;
+  $("#scm").style.width=(pts/(TOTAL*2)*100)+"%";
+}
+function mountQ(host,id,label,opts,chips){
+  const q=document.createElement("div");q.className="q";
+  q.innerHTML=`<div class="q-label">${label}</div><div class="${chips?"chips":"opts"}"></div><div class="fb" hidden></div>`;
+  const box=q.querySelector(chips?".chips":".opts"),fb=q.querySelector(".fb");
+  opts.forEach((o,i)=>{const b=document.createElement("button");b.className="opt";b.id=`${id}-${i}`;b.textContent=o.text;b.onclick=()=>answer(i);box.append(b)});
+  function show(i){
+    const o=opts[i],best=Math.max(...opts.map(x=>x.pts));
+    box.querySelectorAll(".opt").forEach((b,j)=>{b.disabled=true;if(opts[j].pts===best)b.classList.add("right")});
+    const cls=o.pts===best?"right":o.pts>0?"partial":"wrong";
+    box.children[i].classList.remove("right");box.children[i].classList.add(cls);
+    const tag=o.pts===best?'<span class="tag ok">Best</span>':o.pts>0?'<span class="tag mid">Partly</span>':'<span class="tag no">Not this</span>';
+    fb.innerHTML=tag+o.fb;fb.hidden=false;
+  }
+  function answer(i){if(state[id])return;state[id]={i,pts:opts[i].pts};save();refresh();show(i)}
+  if(state[id])show(state[id].i);
+  host.append(q);
+}
+CASES.forEach((c,n)=>{
+  const d=document.createElement("div");d.className="panel case";
+  d.innerHTML=`<div class="case-top"><div class="case-no">${n+1}</div><div class="case-t"><div class="eyebrow">Case ${n+1} of ${CASES.length} · ${c.zh}</div><h3>${c.t}</h3><p class="clue">${c.clue}</p></div></div>`;
+  d.append(c.chart());
+  mountQ(d,`c${n}rc`,"What is the root cause?",RC.map((r,i)=>({text:r,pts:i===c.rc?2:0,fb:(i===c.rc?"":`It's <b>${RC[c.rc]}</b>. `)+c.rcWhy})),true);
+  mountQ(d,`c${n}mv`,c.move.q,c.move.o.map(([text,pts,fb])=>({text,pts,fb})));
+  $("#caselist").append(d);
+});
+GATES.forEach((g,n)=>{
+  const d=document.createElement("div");d.className="panel gate";
+  d.innerHTML=`<div class="eyebrow">Decision ${n+1} of ${GATES.length}</div><h3>${g.t}</h3><div class="meta">${g.meta.map(([k,v])=>`<span>${k}: <b>${v}</b></span>`).join("")}</div>`;
+  mountQ(d,`g${n}`,"Your call",g.o.map(([text,pts,fb])=>({text,pts,fb})));
+  $("#gatelist").append(d);
+});
+$("#reset").onclick=()=>{state={};save();location.reload()};
+refresh();
+</script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+﻿Issue_ID,Run_ID,Open_Date,Project,Build_Stage,Test_Category,Symptom,Severity,Owner_Dept,Status,Close_Date,Root_Cause_Category,Root_Cause_Note
+ISS-0001,R00007,2026-06-01,ORION-2U,EVT,Network,Throughput below spec,Minor,,Closed,2026-07-01,No Fault Found,Could not reproduce
+ISS-0002,R00027,2026-06-03,ORION-2U,EVT,Storage,IOPS below spec,Major,SQE,Closed,2026-06-24,Component,Replaced component; supplier FA requested
+ISS-0003,R00041,2026-06-04,ORION-2U,EVT,Memory,Error not logged in SEL,Major,RD-BIOS,Closed,2026-06-23,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0004,R00042,2026-06-04,ORION-2U,EVT,Burn-in,Unexpected reboot,Critical,ME,Closed,2026-06-11,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0005,R00060,2026-06-06,ORION-2U,EVT,Thermal,Fan speed not responding,Minor,RD-BIOS,Closed,2026-06-10,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0006,R00071,2026-06-07,ORION-2U,EVT,Memory,Correctable ECC errors over threshold,Major,RD-BIOS,Closed,2026-06-12,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0007,R00078,2026-06-08,ORION-2U,EVT,Storage,IOPS below spec,Minor,RD-HW,Closed,2026-06-14,Design,Design change under review
+ISS-0008,R00104,2026-06-10,ORION-2U,EVT,Storage,IOPS below spec,Major,RD-HW,Closed,2026-06-14,Design,Design change under review
+ISS-0009,R00106,2026-06-10,ORION-2U,EVT,BMC/Firmware,Sensor reading missing,Major,RD-FW,Closed,2026-06-13,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0010,R00110,2026-06-10,ORION-2U,EVT,PCIe/GPU,GPU fell off bus,Major,RD-HW,Closed,2026-06-23,Design,Design change under review
+ISS-0011,R00113,2026-06-11,ORION-2U,EVT,Power-on/POST,No POST,Minor,RD-BIOS,Closed,2026-06-30,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0012,R00142,2026-06-15,ORION-2U,EVT,PCIe/GPU,Link trained at Gen4 instead of Gen5,Major,RD-HW,Closed,2026-06-16,Design,Design change under review
+ISS-0013,R00151,2026-06-15,ORION-2U,EVT,PCIe/GPU,Link trained at Gen4 instead of Gen5,Critical,RD-HW,Closed,2026-07-03,Design,Design change under review
+ISS-0014,R00160,2026-06-15,VEGA-1U,EVT,Memory,Correctable ECC errors over threshold,Major,SQE,Closed,2026-09-14,Component,"DIMM lot B2607 marginal; supplier 8D requested, lot quarantined 2026-09-08"
+ISS-0015,R00194,2026-06-17,ORION-2U,EVT,Network,Throughput below spec,Minor,RD-HW,Closed,2026-07-05,Design,Design change under review
+ISS-0016,R00210,2026-06-17,ORION-2U,EVT,BMC/Firmware,BMC unresponsive after update,Minor,ME,Closed,2026-06-20,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0017,R00214,2026-06-17,ORION-2U,EVT,Storage,NVMe drive dropped after hot-plug,Minor,SQE,Closed,2026-07-12,Component,Replaced component; supplier FA requested
+ISS-0018,R00219,2026-06-17,ORION-2U,EVT,Network,Link down,Major,Test Eng,Closed,2026-06-25,No Fault Found,Could not reproduce
+ISS-0019,R00236,2026-06-17,VEGA-1U,EVT,Memory,Correctable ECC errors over threshold,Minor,RD-BIOS,Closed,2026-06-21,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0020,R00254,2026-06-18,VEGA-1U,EVT,Power-on/POST,POST hang at code 0xB2,Minor,,Closed,2026-07-09,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0021,R00288,2026-06-20,ORION-2U,EVT,Power-on/POST,System stuck in S5,Major,RD-BIOS,Closed,2026-06-23,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0022,R00291,2026-06-20,VEGA-1U,EVT,Network,Link down,Major,ME,Closed,2026-06-23,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0023,R00296,2026-06-20,VEGA-1U,EVT,Burn-in,Kernel panic,Minor,Test Eng,Closed,2026-08-07,No Fault Found,Could not reproduce
+ISS-0024,R00309,2026-06-21,VEGA-1U,EVT,Thermal,Fan speed not responding,Critical,ME,Closed,2026-07-01,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0025,R00311,2026-06-21,VEGA-1U,EVT,Memory,Correctable ECC errors over threshold,Minor,ME,Closed,2026-07-19,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0026,R00314,2026-06-21,VEGA-1U,EVT,Power-on/POST,No POST,Major,RD-HW,Closed,2026-06-25,Design,Design change under review
+ISS-0027,R00315,2026-06-21,VEGA-1U,EVT,Power-on/POST,No POST,Major,SQE,Closed,2026-07-06,Component,Replaced component; supplier FA requested
+ISS-0028,R00326,2026-06-22,ORION-2U,EVT,Memory,DIMM not detected,Major,RD-BIOS,Closed,2026-07-11,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0029,R00328,2026-06-22,VEGA-1U,EVT,Network,Throughput below spec,Major,SQE,Closed,2026-06-24,Component,Replaced component; supplier FA requested
+ISS-0030,R00333,2026-06-22,VEGA-1U,EVT,Thermal,CPU throttling,Major,SQE,Closed,2026-07-18,Component,Replaced component; supplier FA requested
+ISS-0031,R00338,2026-06-22,VEGA-1U,EVT,Thermal,Fan speed not responding,Critical,RD-BIOS,Closed,2026-06-29,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0032,R00339,2026-06-22,VEGA-1U,EVT,BMC/Firmware,BMC unresponsive after update,Critical,ME,Closed,2026-07-03,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0033,R00362,2026-06-24,ORION-2U,EVT,Memory,DIMM not detected,Minor,SQE,Closed,2026-07-09,Component,Replaced component; supplier FA requested
+ISS-0034,R00364,2026-06-24,ORION-2U,EVT,Storage,NVMe drive dropped after hot-plug,Minor,SQE,Closed,2026-07-09,Component,Replaced component; supplier FA requested
+ISS-0035,R00386,2026-06-25,ORION-2U,EVT,Network,Link down,Critical,RD-HW,Closed,2026-07-08,Design,Design change under review
+ISS-0036,R00405,2026-06-26,ORION-2U,EVT,Memory,Error not logged in SEL,Critical,ME,Closed,2026-08-20,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0037,R00411,2026-06-26,VEGA-1U,EVT,Thermal,Fan speed not responding,Minor,Test Eng,Closed,2026-07-07,No Fault Found,Could not reproduce
+ISS-0038,R00479,2026-06-30,ORION-2U,EVT,Thermal,Fan speed not responding,Major,Thermal,Closed,2026-07-07,Design,Design change under review
+ISS-0039,R00502,2026-06-30,vega-1u,EVT,Burn-in,Kernel panic,Major,RD-BIOS,Closed,2026-07-04,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0040,R00519,2026-07-01,VEGA-1U,EVT,Memory,Error not logged in SEL,Critical,SQE,Closed,2026-07-07,Component,Replaced component; supplier FA requested
+ISS-0041,R00521,2026-07-01,VEGA-1U,EVT,Thermal,CPU throttling,Minor,RD-BIOS,Closed,2026-07-06,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0042,R00539,2026-07-01,LYRA-4U,EVT,Memory,Error not logged in SEL,Major,RD-HW,Closed,2026-07-17,Design,Design change under review
+ISS-0043,R00552,2026-07-02,ORION-2U,EVT,Storage,NVMe drive dropped after hot-plug,Major,RD-BIOS,Closed,2026-07-09,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0044,R00553,2026-07-02,VEGA-1U,EVT,PCIe/GPU,GPU fell off bus,Major,ME,Closed,2026-07-06,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0045,R00590,2026-07-03,VEGA-1U,EVT,Power-on/POST,POST hang at code 0xB2,Critical,SQE,Closed,2026-08-08,Component,Replaced component; supplier FA requested
+ISS-0046,R00592,2026-07-03,VEGA-1U,EVT,Storage,IOPS below spec,Major,Test Eng,Closed,2026-07-15,No Fault Found,Could not reproduce
+ISS-0047,R00609,2026-07-04,VEGA-1U,EVT,Memory,Correctable ECC errors over threshold,Minor,ME,Closed,2026-07-28,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0048,R00640,2026-07-06,ORION-2U,EVT,Burn-in,Kernel panic,Major,ME,Closed,2026-07-18,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0049,R00655,2026-07-06,VEGA-1U,EVT,Power-on/POST,System stuck in S5,Major,Test Eng,Closed,2026-07-08,No Fault Found,Could not reproduce
+ISS-0050,R00661,2026-07-06,LYRA-4U,EVT,Power-on/POST,System stuck in S5,Minor,RD-HW,Closed,2026-07-16,Design,Design change under review
+ISS-0051,R00663,2026-07-06,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0052,R00673,2026-07-07,VEGA-1U,EVT,Storage,IOPS below spec,Major,Test Eng,Closed,2026-07-24,No Fault Found,Could not reproduce
+ISS-0053,R00684,2026-07-07,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0054,R00698,2026-07-08,VEGA-1U,EVT,Memory,Correctable ECC errors over threshold,Major,SQE,Closed,2026-09-23,Component,"DIMM lot B2607 marginal; supplier 8D requested, lot quarantined 2026-09-08"
+ISS-0055,R00715,2026-07-08,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0056,R00730,2026-07-09,VEGA-1U,EVT,Thermal,Fan speed not responding,Major,Thermal,Closed,2026-07-29,Design,Design change under review
+ISS-0057,R00743,2026-07-09,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0058,R00745,2026-07-09,LYRA-4U,EVT,PCIe/GPU,GPU fell off bus,Major,SQE,Closed,2026-07-15,Component,Replaced component; supplier FA requested
+ISS-0059,R00765,2026-07-10,VEGA-1U,EVT,PCIe/GPU,GPU fell off bus,Minor,SQE,Closed,2026-07-16,Component,Replaced component; supplier FA requested
+ISS-0060,R00771,2026-07-10,VEGA-1U,EVT,Storage,IOPS below spec,Major,RD-BIOS,Closed,2026-07-18,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0061,R00799,2026-07-11,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0062,R00802,2026-07-11,LYRA-4U,EVT,Power-on/POST,No POST,Major,SQE,Closed,2026-07-17,Component,Replaced component; supplier FA requested
+ISS-0063,R00809,2026-07-12,VEGA-1U,EVT,BMC/Firmware,Sensor reading missing,Critical,RD-FW,Closed,2026-07-25,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0064,R00839,2026-07-13,VEGA-1U,EVT,Thermal,CPU throttling,Critical,Thermal,Closed,2026-07-27,Design,Design change under review
+ISS-0065,R00853,2026-07-14,ORION-2U,DVT,Memory,Error not logged in SEL,Major,RD-BIOS,Closed,2026-07-26,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0066,R00858,2026-07-14,ORION-2U,DVT,Thermal,CPU throttling,Major,Test Eng,Closed,2026-07-21,No Fault Found,Could not reproduce
+ISS-0067,R00864,2026-07-14,VEGA-1U,EVT,Power-on/POST,No POST,Minor,SQE,Closed,2026-07-23,Component,Replaced component; supplier FA requested
+ISS-0068,R00872,2026-07-14,LYRA-4U,EVT,Burn-in,Kernel panic,Critical,RD-HW,Closed,2026-07-29,Design,Design change under review
+ISS-0069,R00875,2026-07-14,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0070,R00881,2026-07-15,ORION-2U,DVT,Memory,Error not logged in SEL,Minor,ME,Closed,2026-07-27,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0071,R00895,2026-07-15,LYRA-4U,EVT,Memory,Correctable ECC errors over threshold,Major,RD-BIOS,Closed,2026-07-25,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0072,R00904,2026-07-15,LYRA-4U,EVT,Memory,DIMM not detected,Critical,ME,Closed,2026-07-30,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0073,R00907,2026-07-16,ORION-2U,DVT,Memory,Error not logged in SEL,Minor,Test Eng,Closed,2026-07-23,No Fault Found,Could not reproduce
+ISS-0074,R00910,2026-07-16,ORION-2U,DVT,Thermal,Fan speed not responding,Major,RD-FW,Closed,2026-08-29,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0075,R00919,2026-07-16,ORION-2U,DVT,Memory,Error not logged in SEL,Major,SQE,Closed,2026-07-24,Component,Replaced component; supplier FA requested
+ISS-0076,R00945,2026-07-17,ORION-2U,DVT,Thermal,Fan speed not responding,Critical,RD-FW,Closed,2026-08-25,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0077,R00949,2026-07-17,ORION-2U,DVT,Memory,Error not logged in SEL,Critical,RD-BIOS,Closed,2026-07-25,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0078,R00950,2026-07-17,ORION-2U,DVT,Thermal,Fan speed not responding,Minor,SQE,Closed,2026-07-20,Component,Replaced component; supplier FA requested
+ISS-0079,R00954,2026-07-17,VEGA-1U,EVT,Thermal,Fan speed not responding,Major,RD-FW,Closed,2026-08-28,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0080,R00961,2026-07-17,VEGA-1U,EVT,Burn-in,Unexpected reboot,Minor,ME,Closed,2026-07-25,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0081,R00966,2026-07-17,LYRA-4U,EVT,PCIe/GPU,GPU fell off bus,Minor,ME,Closed,2026-07-19,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0082,R00975,2026-07-18,ORION-2U,DVT,Thermal,Fan speed not responding,Critical,RD-FW,Closed,2026-08-23,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0083,R00986,2026-07-18,LYRA-4U,EVT,Power-on/POST,No POST,Minor,SQE,Closed,2026-07-29,Component,Replaced component; supplier FA requested
+ISS-0084,R00992,2026-07-18,LYRA-4U,EVT,Thermal,Fan speed not responding,Critical,RD-FW,Closed,2026-08-29,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0085,R00996,2026-07-19,ORION-2U,DVT,Storage,NVMe drive dropped after hot-plug,Minor,Test Eng,Closed,2026-07-30,No Fault Found,Could not reproduce
+ISS-0086,R01004,2026-07-19,VEGA-1U,EVT,Thermal,Fan speed not responding,Critical,RD-FW,Closed,2026-08-25,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0087,R01013,2026-07-20,ORION-2U,DVT,Network,Link down,Minor,RD-HW,Closed,2026-07-26,Design,Design change under review
+ISS-0088,R01016,2026-07-20,ORION-2U,DVT,Thermal,Fan speed not responding,Major,RD-BIOS,Closed,2026-07-24,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0089,R01028,2026-07-20,ORION-2U,DVT,Thermal,Fan speed not responding,Major,RD-FW,Closed,2026-08-24,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0090,R01044,2026-07-20,LYRA-4U,EVT,BMC/Firmware,Sensor reading missing,Major,SQE,Closed,2026-07-29,Component,Replaced component; supplier FA requested
+ISS-0091,R01053,2026-07-21,ORION-2U,DVT,Thermal,Fan speed not responding,Major,RD-FW,Closed,2026-08-24,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0092,R01062,2026-07-21,VEGA-1U,EVT,Burn-in,Kernel panic,Minor,RD-BIOS,Closed,2026-07-25,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0093,R01065,2026-07-21,VEGA-1U,EVT,Burn-in,Unexpected reboot,Major,RD-BIOS,Closed,2026-07-28,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0094,R01067,2026-07-21,VEGA-1U,EVT,Thermal,Fan speed not responding,Critical,RD-FW,Closed,2026-08-28,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0095,R01072,2026-07-21,lyra-4u,EVT,Power-on/POST,No POST,Major,Test Eng,Closed,2026-07-23,No Fault Found,Retest passed on another station; could not reproduce
+ISS-0096,R01095,2026-07-22,VEGA-1U,EVT,BMC/Firmware,Sensor reading missing,Major,ME,Closed,2026-08-04,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0097,R01106,2026-07-23,ORION-2U,DVT,Thermal,Fan speed not responding,Major,RD-FW,Closed,2026-08-24,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0098,R01125,2026-07-23,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0099,R01133,2026-07-23,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0100,R01135,2026-07-24,ORION-2U,DVT,Network,Link down,Minor,Test Eng,Closed,2026-07-25,No Fault Found,Retest passed on another station; could not reproduce
+ISS-0101,R01146,2026-07-24,VEGA-1U,EVT,Storage,IOPS below spec,Minor,ME,Closed,2026-08-03,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0102,R01153,2026-07-24,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0103,R01154,2026-07-24,LYRA-4U,EVT,Power-on/POST,No POST,Major,Test Eng,Closed,2026-07-27,No Fault Found,Retest passed on another station; could not reproduce
+ISS-0104,R01161,2026-07-25,ORION-2U,DVT,Power-on/POST,No POST,Major,Test Eng,Closed,2026-07-30,No Fault Found,Retest passed on another station; could not reproduce
+ISS-0105,R01167,2026-07-25,VEGA-1U,EVT,Power-on/POST,No POST,Major,Test Eng,Closed,2026-07-26,No Fault Found,Retest passed on another station; could not reproduce
+ISS-0106,R01176,2026-07-25,LYRA-4U,EVT,Power-on/POST,No POST,Minor,Test Eng,Closed,2026-07-29,No Fault Found,Retest passed on another station; could not reproduce
+ISS-0107,R01188,2026-07-26,VEGA-1U,EVT,Network,Link down,Major,ME,Closed,2026-07-31,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0108,R01192,2026-07-26,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0109,R01194,2026-07-26,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0110,R01205,2026-07-27,ORION-2U,DVT,Power-on/POST,No POST,Major,Test Eng,Closed,2026-07-28,No Fault Found,Retest passed on another station; could not reproduce
+ISS-0111,R01211,2026-07-27,VEGA-1U,EVT,PCIe/GPU,GPU fell off bus,Minor,RD-BIOS,Closed,2026-08-03,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0112,R01224,2026-07-27,LYRA-4U,EVT,PCIe/GPU,GPU fell off bus,Minor,ME,Closed,2026-08-07,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0113,R01225,2026-07-27,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0114,R01228,2026-07-27,LYRA-4U,EVT,Thermal,Fan speed not responding,Critical,RD-FW,Closed,2026-08-29,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0115,R01232,2026-07-27,LYRA-4U,EVT,Thermal,Fan speed not responding,Critical,RD-FW,Closed,2026-08-26,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0116,R01234,2026-07-28,ORION-2U,DVT,Power-on/POST,POST hang at code 0xB2,Major,SQE,Closed,2026-08-08,Component,Replaced component; supplier FA requested
+ISS-0117,R01255,2026-07-28,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0118,R01283,2026-07-29,LYRA-4U,EVT,Network,Link down,Major,Test Eng,Closed,2026-07-31,No Fault Found,Retest passed on another station; could not reproduce
+ISS-0119,R01293,2026-07-30,ORION-2U,DVT,BMC/Firmware,BMC unresponsive after update,Critical,RD-HW,Closed,2026-08-06,Design,Design change under review
+ISS-0120,R01294,2026-07-30,ORION-2U,DVT,PCIe/GPU,Link trained at Gen4 instead of Gen5,Minor,Test Eng,Closed,2026-08-01,No Fault Found,Retest passed on another station; could not reproduce
+ISS-0121,R01299,2026-07-30,ORION-2U,DVT,Thermal,Fan speed not responding,Major,RD-FW,Closed,2026-08-26,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0122,R01301,2026-07-30,VEGA-1U,EVT,Power-on/POST,No POST,Minor,Test Eng,Closed,2026-08-02,No Fault Found,Retest passed on another station; could not reproduce
+ISS-0123,R01302,2026-07-30,VEGA-1U,EVT,Network,Link down,Major,RD-HW,Closed,2026-08-24,Design,Design change under review
+ISS-0124,R01305,2026-07-30,VEGA-1U,EVT,BMC/Firmware,BMC unresponsive after update,Major,ME,Closed,2026-08-10,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0125,R01321,2026-07-30,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0126,R01325,2026-07-30,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0127,R01337,2026-07-31,ORION-2U,DVT,Thermal,Fan speed not responding,Critical,RD-FW,Closed,2026-08-29,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0128,R01339,2026-07-31,ORION-2U,DVT,BMC/Firmware,BMC unresponsive after update,Major,RD-FW,Closed,2026-08-11,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0129,R01340,2026-07-31,ORION-2U,DVT,Thermal,Fan speed not responding,Major,RD-FW,Closed,2026-08-24,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0130,R01350,2026-07-31,VEGA-1U,EVT,Network,Throughput below spec,Major,ME,Closed,2026-08-01,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0131,R01371,2026-07-31,LYRA-4U,EVT,Power-on/POST,POST hang at code 0xB2,Minor,RD-HW,Closed,2026-08-06,Design,Design change under review
+ISS-0132,R01385,2026-08-01,VEGA-1U,DVT,Burn-in,Unexpected reboot,Major,Test Eng,Closed,2026-08-05,No Fault Found,Could not reproduce
+ISS-0133,R01406,2026-08-02,LYRA-4U,EVT,Network,Link down,Major,Test Eng,Closed,2026-08-04,No Fault Found,Retest passed on another station; could not reproduce
+ISS-0134,R01428,2026-08-03,VEGA-1U,DVT,Network,Link down,Major,Test Eng,Closed,2026-08-05,No Fault Found,Retest passed on another station; could not reproduce
+ISS-0135,R01432,2026-08-03,VEGA-1U,DVT,Memory,Correctable ECC errors over threshold,Major,SQE,In Progress,,Component,"DIMM lot B2607 marginal; supplier 8D requested, lot quarantined 2026-09-08"
+ISS-0136,R01441,2026-08-03,LYRA-4U,EVT,Power-on/POST,No POST,Minor,RD-BIOS,Closed,2026-08-11,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0137,R01466,2026-08-04,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0138,R01490,2026-08-05,VEGA-1U,DVT,Memory,Correctable ECC errors over threshold,Major,SQE,In Progress,,Component,"DIMM lot B2607 marginal; supplier 8D requested, lot quarantined 2026-09-08"
+ISS-0139,R01492,2026-08-05,VEGA-1U,DVT,Power-on/POST,No POST,Major,Test Eng,Closed,2026-08-09,No Fault Found,Retest passed on another station; could not reproduce
+ISS-0140,R01496,2026-08-05,VEGA-1U,DVT,BMC/Firmware,Sensor reading missing,Minor,Test Eng,Closed,2026-08-14,No Fault Found,Could not reproduce
+ISS-0141,R01498,2026-08-05,VEGA-1U,DVT,Power-on/POST,No POST,Major,Test Eng,Closed,2026-08-06,No Fault Found,Retest passed on another station; could not reproduce
+ISS-0142,R01501,2026-08-05,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0143,R01505,2026-08-05,LYRA-4U,EVT,Burn-in,Unexpected reboot,Minor,RD-BIOS,Closed,2026-08-08,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0144,R01521,2026-08-06,ORION-2U,DVT,Power-on/POST,No POST,Minor,Test Eng,Closed,2026-08-11,No Fault Found,Retest passed on another station; could not reproduce
+ISS-0145,R01528,2026-08-06,ORION-2U,DVT,Storage,NVMe drive dropped after hot-plug,Minor,Test Eng,Closed,2026-08-16,No Fault Found,Could not reproduce
+ISS-0146,R01553,2026-08-07,ORION-2U,DVT,Memory,Error not logged in SEL,Major,RD-HW,Closed,2026-08-11,Design,Design change under review
+ISS-0147,R01563,2026-08-07,VEGA-1U,DVT,Thermal,Fan speed not responding,Major,RD-FW,Closed,2026-08-28,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0148,R01564,2026-08-07,VEGA-1U,DVT,Storage,NVMe drive dropped after hot-plug,Major,SQE,Closed,2026-08-14,Component,Replaced component; supplier FA requested
+ISS-0149,R01567,2026-08-07,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0150,R01570,2026-08-07,LYRA-4U,EVT,BMC/Firmware,Sensor reading missing,Minor,SQE,Closed,2026-08-13,Component,Replaced component; supplier FA requested
+ISS-0151,R01574,2026-08-07,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0152,R01582,2026-08-08,vega-1u,DVT,Thermal,Fan speed not responding,Major,RD-FW,Closed,2026-08-29,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0153,R01586,2026-08-08,VEGA-1U,DVT,Burn-in,Kernel panic,Major,SQE,Closed,2026-08-26,Component,Replaced component; supplier FA requested
+ISS-0154,R01605,2026-08-09,VEGA-1U,DVT,Power-on/POST,No POST,Major,Test Eng,Closed,2026-08-11,No Fault Found,Retest passed on another station; could not reproduce
+ISS-0155,R01619,2026-08-10,ORION-2U,DVT,Thermal,Fan speed not responding,Critical,RD-FW,Closed,2026-08-26,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0156,R01637,2026-08-10,VEGA-1U,DVT,Thermal,Fan speed not responding,Critical,RD-FW,Closed,2026-08-23,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0157,R01643,2026-08-10,LYRA-4U,EVT,PCIe/GPU,GPU fell off bus,Major,Test Eng,Closed,2026-08-14,No Fault Found,Could not reproduce
+ISS-0158,R01644,2026-08-10,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0159,R01652,2026-08-11,ORION-2U,DVT,Power-on/POST,POST hang at code 0xB2,Major,RD-BIOS,Closed,2026-08-19,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0160,R01653,2026-08-11,ORION-2U,DVT,Thermal,Fan speed not responding,Critical,RD-FW,Closed,2026-08-26,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0161,R01659,2026-08-11,VEGA-1U,DVT,Memory,Correctable ECC errors over threshold,Major,SQE,Closed,2026-09-23,Component,"DIMM lot B2607 marginal; supplier 8D requested, lot quarantined 2026-09-08"
+ISS-0162,R01660,2026-08-11,LYRA-4U,EVT,PCIe/GPU,Link trained at Gen4 instead of Gen5,Major,Test Eng,Closed,2026-08-12,No Fault Found,Retest passed on another station; could not reproduce
+ISS-0163,R01665,2026-08-12,ORION-2U,DVT,Thermal,Fan speed not responding,Critical,RD-FW,Closed,2026-08-26,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0164,R01675,2026-08-12,VEGA-1U,DVT,Network,Link down,Major,Test Eng,Closed,2026-08-17,Test Setup/Fixture,Worn high-speed cable on ST-07; retest on other station passed
+ISS-0165,R01692,2026-08-13,ORION-2U,DVT,Thermal,Fan speed not responding,Critical,RD-FW,Closed,2026-08-26,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0166,R01694,2026-08-13,ORION-2U,DVT,Burn-in,Kernel panic,Major,RD-HW,Closed,2026-08-19,Design,Design change under review
+ISS-0167,R01697,2026-08-13,ORION-2U,DVT,Thermal,Fan speed not responding,Critical,RD-FW,Closed,2026-08-28,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0168,R01711,2026-08-13,LYRA-4U,EVT,Thermal,Fan speed not responding,Critical,RD-FW,Closed,2026-08-28,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0169,R01720,2026-08-14,ORION-2U,DVT,Network,Link down,Major,SQE,Closed,2026-08-16,Component,Replaced component; supplier FA requested
+ISS-0170,R01728,2026-08-14,VEGA-1U,DVT,Memory,Correctable ECC errors over threshold,Major,SQE,In Progress,,Component,"DIMM lot B2607 marginal; supplier 8D requested, lot quarantined 2026-09-08"
+ISS-0171,R01735,2026-08-14,LYRA-4U,EVT,Thermal,Fan speed not responding,Minor,Test Eng,Closed,2026-08-23,No Fault Found,Could not reproduce
+ISS-0172,R01738,2026-08-14,LYRA-4U,EVT,Power-on/POST,No POST,Minor,Test Eng,Closed,2026-08-16,Test Setup/Fixture,Worn high-speed cable on ST-07; retest on other station passed
+ISS-0173,R01740,2026-08-14,LYRA-4U,EVT,PCIe/GPU,Link trained at Gen4 instead of Gen5,Major,Test Eng,Closed,2026-08-17,Test Setup/Fixture,Worn high-speed cable on ST-07; retest on other station passed
+ISS-0174,R01748,2026-08-15,ORION-2U,DVT,Burn-in,Unexpected reboot,Minor,RD-HW,Closed,2026-08-29,Design,Design change under review
+ISS-0175,R01758,2026-08-15,VEGA-1U,DVT,Thermal,Fan speed not responding,Critical,RD-FW,Closed,2026-08-24,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0176,R01767,2026-08-15,LYRA-4U,EVT,Power-on/POST,No POST,Minor,RD-BIOS,Closed,2026-08-26,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0177,R01783,2026-08-16,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0178,R01795,2026-08-17,VEGA-1U,DVT,THERMAL ,Fan speed not responding,Major,RD-FW,Closed,2026-08-24,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0179,R01817,2026-08-18,ORION-2U,DVT,Thermal,Fan speed not responding,Major,RD-FW,Closed,2026-08-24,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0180,R01829,2026-08-18,VEGA-1U,DVT,BMC/Firmware,BMC unresponsive after update,Minor,RD-HW,Closed,2026-08-24,Design,Design change under review
+ISS-0181,R01831,2026-08-18,VEGA-1U,DVT,Network,Link down,Major,Test Eng,Closed,2026-08-22,Test Setup/Fixture,Worn high-speed cable on ST-07; retest on other station passed
+ISS-0182,R01867,2026-08-19,LYRA-4U,EVT,Storage,IOPS below spec,Minor,ME,Closed,2026-08-23,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0183,R01884,2026-08-20,VEGA-1U,DVT,Thermal,Fan speed not responding,Major,,Closed,2026-08-25,Firmware/BIOS,BMC 2.3.1 fan table not loaded after AC cycle; fixed in 2.3.4
+ISS-0184,R01886,2026-08-20,LYRA-4U,EVT,BMC/Firmware,Sensor reading missing,Major,SQE,Closed,2026-08-30,Component,Replaced component; supplier FA requested
+ISS-0185,R01903,2026-08-21,ORION-2U,DVT,Power-on/POST,No POST,Critical,Test Eng,Closed,2026-09-04,No Fault Found,Could not reproduce
+ISS-0186,R01921,2026-08-21,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0187,R01928,2026-08-21,LYRA-4U,EVT,Network,Link down,Major,Test Eng,Closed,2026-08-22,Test Setup/Fixture,Worn high-speed cable on ST-07; retest on other station passed
+ISS-0188,R01939,2026-08-22,VEGA-1U,DVT,Storage,NVMe drive dropped after hot-plug,Major,RD-BIOS,Closed,2026-08-28,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0189,R01969,2026-08-24,ORION-2U,DVT,Storage,IOPS below spec,Major,RD-HW,Closed,2026-09-06,Design,Design change under review
+ISS-0190,R01985,2026-08-24,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0191,R01993,2026-08-24,LYRA-4U,EVT,Memory,Error not logged in SEL,Minor,SQE,Closed,2026-08-30,Component,Replaced component; supplier FA requested
+ISS-0192,R02009,2026-08-25,VEGA-1U,DVT,PCIe/GPU,Link trained at Gen4 instead of Gen5,Minor,Test Eng,Closed,2026-08-30,Test Setup/Fixture,Worn high-speed cable on ST-07; retest on other station passed
+ISS-0193,R02015,2026-08-25,LYRA-4U,EVT,Network,Link down,Minor,Test Eng,Closed,2026-08-26,Test Setup/Fixture,Worn high-speed cable on ST-07; retest on other station passed
+ISS-0194,R02022,2026-08-25,LYRA-4U,EVT,Power-on/POST,System stuck in S5,Major,RD-BIOS,Closed,2026-09-02,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0195,R02044,2026-08-26,VEGA-1U,DVT,Memory,Correctable ECC errors over threshold,Major,SQE,Open,,Component,"DIMM lot B2607 marginal; supplier 8D requested, lot quarantined 2026-09-08"
+ISS-0196,R02049,2026-08-26,LYRA-4U,EVT,Burn-in,Kernel panic,Minor,RD-HW,Closed,2026-09-01,Design,Design change under review
+ISS-0197,R02060,2026-08-27,ORION-2U,DVT,Power-on/POST,No POST,Critical,RD-BIOS,Closed,2026-09-08,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0198,R02085,2026-08-27,LYRA-4U,EVT,PCIe/GPU,Link trained at Gen4 instead of Gen5,Major,Test Eng,Closed,2026-09-01,Test Setup/Fixture,Worn high-speed cable on ST-07; retest on other station passed
+ISS-0199,R02094,2026-08-28,ORION-2U,DVT,Thermal,Fan speed not responding,Minor,Thermal,Closed,2026-09-07,Design,Design change under review
+ISS-0200,R02101,2026-08-28,ORION-2U,DVT,PCIE/GPU ,Link trained at Gen4 instead of Gen5,Minor,Test Eng,Closed,2026-08-31,Test Setup/Fixture,Worn high-speed cable on ST-07; retest on other station passed
+ISS-0201,R02111,2026-08-28,VEGA-1U,DVT,PCIe/GPU,Link trained at Gen4 instead of Gen5,Critical,ME,Closed,2026-09-13,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0202,R02121,2026-08-28,LYRA-4U,EVT,BMC/Firmware,BMC unresponsive after update,Major,RD-FW,Closed,2026-09-07,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0203,R02129,2026-08-29,ORION-2U,DVT,Memory,Error not logged in SEL,Minor,Test Eng,Closed,2026-09-07,No Fault Found,Could not reproduce
+ISS-0204,R02141,2026-08-29,LYRA-4U,EVT,Network,Link down,Minor,RD-BIOS,Closed,2026-09-08,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0205,R02152,2026-08-30,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0206,R02163,2026-08-31,ORION-2U,DVT,Memory,DIMM not detected,Minor,SQE,Closed,2026-09-06,Component,Replaced component; supplier FA requested
+ISS-0207,R02176,2026-08-31,LYRA-4U,EVT,Memory,Correctable ECC errors over threshold,Major,SQE,Open,,Component,"DIMM lot B2607 marginal; supplier 8D requested, lot quarantined 2026-09-08"
+ISS-0208,R02183,2026-09-01,ORION-2U,PVT,Storage,NVMe drive dropped after hot-plug,Major,Test Eng,Closed,2026-09-11,No Fault Found,Could not reproduce
+ISS-0209,R02206,2026-09-01,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0210,R02220,2026-09-02,VEGA-1U,DVT,Power-on/POST,No POST,Major,RD-HW,Closed,2026-09-09,Design,Design change under review
+ISS-0211,R02227,2026-09-02,LYRA-4U,EVT,Network,Link down,Major,ME,Closed,2026-09-06,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0212,R02228,2026-09-02,lyra-4u,EVT,Power-on/POST,No POST,Critical,Test Eng,Closed,2026-09-06,No Fault Found,Could not reproduce
+ISS-0213,R02235,2026-09-02,LYRA-4U,EVT,Memory,Error not logged in SEL,Major,Test Eng,In Progress,,No Fault Found,Could not reproduce
+ISS-0214,R02254,2026-09-03,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0215,R02273,2026-09-04,VEGA-1U,DVT,Memory,Correctable ECC errors over threshold,Major,SQE,Open,,Component,"DIMM lot B2607 marginal; supplier 8D requested, lot quarantined 2026-09-08"
+ISS-0216,R02292,2026-09-05,VEGA-1U,DVT,PCIe/GPU,GPU fell off bus,Major,SQE,Closed,2026-09-15,Component,Replaced component; supplier FA requested
+ISS-0217,R02332,2026-09-07,vega-1u,DVT,Memory,Correctable ECC errors over threshold,Minor,RD-BIOS,Closed,2026-09-17,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0218,R02343,2026-09-07,VEGA-1U,DVT,Memory,Error not logged in SEL,Minor,RD-HW,Closed,2026-09-24,Design,Design change under review
+ISS-0219,R02355,2026-09-07,LYRA-4U,EVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0220,R02366,2026-09-08,ORION-2U,PVT,Memory,Correctable ECC errors over threshold,Major,SQE,Open,,Component,"DIMM lot B2607 marginal; supplier 8D requested, lot quarantined 2026-09-08"
+ISS-0221,R02395,2026-09-08,LYRA-4U,EVT,Storage,IOPS below spec,Minor,RD-BIOS,Closed,2026-09-25,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0222,R02412,2026-09-09,VEGA-1U,DVT,Burn-in,Unexpected reboot,Minor,RD-HW,Closed,2026-09-13,Design,Design change under review
+ISS-0223,R02415,2026-09-09,LYRA-4U,EVT,Network,Throughput below spec,Major,ME,Closed,2026-09-16,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0224,R02417,2026-09-09,LYRA-4U,EVT,PCIe/GPU,Link trained at Gen4 instead of Gen5,Minor,SQE,Closed,2026-09-16,Component,Replaced component; supplier FA requested
+ISS-0225,R02423,2026-09-09,LYRA-4U,EVT,Power-on/POST,POST hang at code 0xB2,Minor,RD-BIOS,Closed,2026-09-12,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0226,R02427,2026-09-09,LYRA-4U,EVT,Memory,Error not logged in SEL,Minor,ME,Closed,2026-09-13,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0227,R02447,2026-09-10,ORION-2U,PVT,Memory,Correctable ECC errors over threshold,Major,SQE,In Progress,,Component,"DIMM lot B2607 marginal; supplier 8D requested, lot quarantined 2026-09-08"
+ISS-0228,R02464,2026-09-10,LYRA-4U,EVT,Memory,Correctable ECC errors over threshold,Minor,ME,Closed,2026-09-21,Assembly/Process,Cable routing / torque issue at assembly
+ISS-0229,R02465,2026-09-10,LYRA-4U,EVT,Burn-in,Kernel panic,Major,RD-BIOS,Closed,2026-09-23,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0230,R02484,2026-09-11,VEGA-1U,DVT,Storage,NVMe drive dropped after hot-plug,Minor,Test Eng,Closed,2026-09-25,No Fault Found,Could not reproduce
+ISS-0231,R02522,2026-09-13,VEGA-1U,DVT,PCIe/GPU,Link trained at Gen4 instead of Gen5,Critical,Test Eng,In Progress,,No Fault Found,Could not reproduce
+ISS-0232,R02533,2026-09-13,LYRA-4U,DVT,Power-on/POST,System stuck in S5,Major,RD-BIOS,Closed,2026-09-18,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0233,R02573,2026-09-15,VEGA-1U,DVT,Storage,NVMe drive dropped after hot-plug,Minor,RD-BIOS,Closed,2026-09-22,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0234,R02584,2026-09-15,LYRA-4U,DVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0235,R02626,2026-09-16,LYRA-4U,DVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0236,R02645,2026-09-17,VEGA-1U,DVT,Network,Throughput below spec,Major,SQE,Closed,2026-09-21,Component,Replaced component; supplier FA requested
+ISS-0237,R02660,2026-09-17,LYRA-4U,DVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0238,R02708,2026-09-19,LYRA-4U,DVT,Burn-in,Unexpected reboot,Major,RD-BIOS,Closed,2026-09-24,Firmware/BIOS,Fixed in next BIOS/BMC drop
+ISS-0239,R02710,2026-09-20,ORION-2U,PVT,Memory,Correctable ECC errors over threshold,Major,SQE,In Progress,,Component,"DIMM lot B2607 marginal; supplier 8D requested, lot quarantined 2026-09-08"
+ISS-0240,R02712,2026-09-20,ORION-2U,PVT,BMC/Firmware,Sensor reading missing,Critical,SQE,In Progress,,Under Analysis,
+ISS-0241,R02722,2026-09-20,VEGA-1U,DVT,Memory,DIMM not detected,Minor,SQE,In Progress,,Under Analysis,
+ISS-0242,R02734,2026-09-21,ORION-2U,PVT,Storage,NVMe drive dropped after hot-plug,Critical,Test Eng,Open,,Under Analysis,
+ISS-0243,R02744,2026-09-21,VEGA-1U,DVT,Power-on/POST,No POST,Minor,Test Eng,In Progress,,Under Analysis,
+ISS-0244,R02785,2026-09-22,LYRA-4U,DVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0245,R02806,2026-09-23,LYRA-4U,DVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0246,R02821,2026-09-24,ORION-2U,PVT,Storage,NVMe drive dropped after hot-plug,Major,RD-BIOS,Open,,Under Analysis,
+ISS-0247,R02828,2026-09-24,ORION-2U,PVT,Power-on/POST,No POST,Minor,SQE,In Progress,,Under Analysis,
+ISS-0248,R02839,2026-09-24,VEGA-1U,DVT,Memory,Correctable ECC errors over threshold,Major,SQE,In Progress,,Component,"DIMM lot B2607 marginal; supplier 8D requested, lot quarantined 2026-09-08"
+ISS-0249,R02878,2026-09-25,LYRA-4U,DVT,Thermal,GPU throttling,Critical,Thermal,In Progress,,Design,GPU heatsink airflow insufficient at >=30C ambient; new shroud in evaluation
+ISS-0250,R02881,2026-09-25,LYRA-4U,DVT,BMC/Firmware,Sensor reading missing,Major,RD-FW,In Progress,,Under Analysis,
